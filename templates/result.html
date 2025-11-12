@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Webcam Capture</title>
+    <style>
+        /* Reset default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color: #333;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #f39c12;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, #f4f7fc, #8e44ad);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            animation: fadeIn 3s ease-out;
+        }
+
+        .hero button {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            background-color: #f39c12;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .hero button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Webcam Section */
+        .webcam-section {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #fff;
+            margin: 30px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .webcam-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .webcam-container {
+            position: relative;
+            max-width: 100%;
+            width: 100%;
+            background-color: #000;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Button for capturing photo */
+        .capture-btn {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            background-color: #f39c12;
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .capture-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <image src="img\cam-icon-png-7.jpg" style="height: 70px;"></image>
+        <a href="index.html">Home</a>
+        <a href="index6.html">predict image</a>
+        <a href="upload.html">Webcam Capture</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Capture Your Moment</h1>
+        <image src="img\camera-logo-hd-png-5.png" style="height: 110px;"></image>
+        <p>Click the button below to access your webcam and capture a photo!</p>
+    </section>
+
+    <!-- Webcam Section -->
+    <section class="webcam-section">
+        <h2>Access Webcam</h2>
+        <div class="webcam-container">
+            <video id="webcam" autoplay></video>
+        </div>
+        <button id="captureBtn" class="capture-btn">Start Webcam</button>
+    </section>
+
+    <script>
+        // JavaScript to access webcam and handle button click
+        const captureBtn = document.getElementById('captureBtn');
+        const webcam = document.getElementById('webcam');
+
+        // Function to access the webcam
+        async function startWebcam() {
+            try {
+                // Request webcam access
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                webcam.srcObject = stream;
+                captureBtn.textContent = 'Webcam Active';
+                captureBtn.disabled = true; // Disable button once webcam is started
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+                alert('Could not access the webcam. Please check your browser permissions.');
+            }
+        }
+
+        // Button click event to start webcam
+        captureBtn.addEventListener('click', startWebcam);
+    </script>
+
+</body>
+</html>
